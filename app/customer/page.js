@@ -181,7 +181,7 @@ export default function CustomerManagement() {
   const handleDeleteCustomer = async (id) => {
     if (window.confirm("Are you sure you want to delete this customer?")) {
       try {
-        const response = await fetch(`/api/customer/${id}`, {
+        const response = await fetch(`/api/customer?id=${id}`, {
           method: "DELETE",
         });
 
@@ -210,7 +210,7 @@ export default function CustomerManagement() {
 
   // Navigate to customer detail page
   const handleViewCustomer = (customerId) => {
-    router.push(`/customer/${customerId}`);
+    router.push(`/customer/detail?id=${customerId}`);
   };
 
   // Load customers on component mount
