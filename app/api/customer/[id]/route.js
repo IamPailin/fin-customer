@@ -4,7 +4,12 @@ import dbConnect from "@/lib/db";
 export async function GET(request, { params }) {
   try {
     await dbConnect();
-    const id = params.id;
+    const { id } = params;
+
+    if (!id) {
+      return new Response("Customer ID is required", { status: 400 });
+    }
+
     const customer = await Customer.findById(id);
 
     if (!customer) {
@@ -21,7 +26,12 @@ export async function GET(request, { params }) {
 export async function DELETE(request, { params }) {
   try {
     await dbConnect();
-    const id = params.id;
+    const { id } = params;
+
+    if (!id) {
+      return new Response("Customer ID is required", { status: 400 });
+    }
+
     const customer = await Customer.findByIdAndDelete(id);
 
     if (!customer) {
