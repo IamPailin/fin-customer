@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import {
   Box,
@@ -33,7 +33,7 @@ import {
   Interests as InterestsIcon,
 } from "@mui/icons-material";
 
-export default function CustomerDetail() {
+function CustomerDetailContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [customer, setCustomer] = useState(null);
@@ -483,5 +483,26 @@ export default function CustomerDetail() {
         </Snackbar>
       </Container>
     </Box>
+  );
+}
+
+export default function CustomerDetail() {
+  return (
+    <Suspense
+      fallback={
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            minHeight: "100vh",
+          }}
+        >
+          <CircularProgress size={60} />
+        </Box>
+      }
+    >
+      <CustomerDetailContent />
+    </Suspense>
   );
 }
